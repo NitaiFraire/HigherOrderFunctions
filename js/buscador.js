@@ -144,10 +144,33 @@ function obtenerAutos(){
 
 const autos = obtenerAutos();
 
-// envent listener
+
+// datos para la busqueda
+let datosBusqueda = {
+
+    marca: '',
+    year: '',
+    minimo: '',
+    maximo: '',
+    puertas: '',
+    transmision: '',
+    color: ''
+}
+
+// event listener de inicio de documento
 document.addEventListener('DOMContentLoaded', () => {
 
     mostrarAutos(autos);
+});
+
+// event listeners para formulario
+const marca = document.querySelector('#marca');
+marca.addEventListener('input', e => {
+
+    datosBusqueda.marca = e.target.value;
+
+    // función para filtrar autos
+    filtrarAuto();
 });
 
 function mostrarAutos(autos){
@@ -157,9 +180,15 @@ function mostrarAutos(autos){
 
     autos.forEach(auto => {
 
-        console.log(auto);
         const autoHtml = document.createElement('p');
         autoHtml.innerHTML = `<p>${auto.marca} - ${auto.modelo} - ${auto.year} - ${auto.puertas} Puertas - Transmisión: ${auto.transmision} - Precio: ${auto.precio} - Color: ${auto.color}</p>`;
         contenedor.appendChild(autoHtml);
     });
 }
+
+
+function filtrarAuto(){
+
+    console.log('desde filtrar autos');
+}
+

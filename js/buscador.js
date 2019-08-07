@@ -202,6 +202,34 @@ maximo.addEventListener('input', e => {
     filtrarAuto();
 });
 
+const puertas = document.querySelector('#puertas');
+puertas.addEventListener('input', e => {
+
+    datosBusqueda.puertas = Number(e.target.value);
+
+    // función para filtrar autos
+    filtrarAuto();
+});
+
+const transmision = document.querySelector('#transmision');
+transmision.addEventListener('input', e => {
+
+    datosBusqueda.transmision = e.target.value;
+
+    // función para filtrar autos
+    filtrarAuto();
+});
+
+
+const color = document.querySelector('#color');
+color.addEventListener('input', e => {
+
+    datosBusqueda.color = e.target.value;
+
+    // función para filtrar autos
+    filtrarAuto();
+});
+
 
 function mostrarAutos(autos){
 
@@ -225,7 +253,8 @@ function mostrarAutos(autos){
 
 function filtrarAuto(){
 
-    const resultado = obtenerAutos().filter( filtrarMarca ).filter( filtrarYear ).filter( filtrarMinimo ).filter( filtrarMaximo );
+    const resultado = obtenerAutos().filter( filtrarMarca ).filter( filtrarYear ).filter( filtrarMinimo )
+                                    .filter( filtrarMaximo ).filter( filtrarPuertas ).filter( filtrarTransmision ).filter( filtrarColor );
     
     if(resultado.length){
 
@@ -285,6 +314,46 @@ function filtrarMaximo(auto){
     }else{
 
         return auto;
+    }
+}
+
+function filtrarPuertas(auto){
+
+    if(datosBusqueda.puertas){
+
+        return auto.puertas === datosBusqueda.puertas;
+
+    }else{
+
+        return auto;
+
+    }
+}
+
+function filtrarTransmision(auto){
+
+    if(datosBusqueda.transmision){
+
+        return auto.transmision === datosBusqueda.transmision;
+
+    }else{
+
+        return auto;
+
+    }
+}
+
+
+function filtrarColor(auto){
+
+    if(datosBusqueda.color){
+
+        return auto.color === datosBusqueda.color;
+
+    }else{
+
+        return auto;
+
     }
 }
 

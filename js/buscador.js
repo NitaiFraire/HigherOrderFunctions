@@ -157,6 +157,7 @@ let datosBusqueda = {
     color: ''
 }
 
+
 // event listener de inicio de documento
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -172,7 +173,6 @@ marca.addEventListener('input', e => {
     // función para filtrar autos
     filtrarAuto();
 });
-
 
 const year = document.querySelector('#year');
 year.addEventListener('input', e => {
@@ -191,7 +191,6 @@ minimo.addEventListener('input', e => {
     // función para filtrar autos
     filtrarAuto();
 });
-
 
 const maximo = document.querySelector('#maximo');
 maximo.addEventListener('input', e => {
@@ -220,7 +219,6 @@ transmision.addEventListener('input', e => {
     filtrarAuto();
 });
 
-
 const color = document.querySelector('#color');
 color.addEventListener('input', e => {
 
@@ -229,10 +227,11 @@ color.addEventListener('input', e => {
     // función para filtrar autos
     filtrarAuto();
 });
+// event listeners para formulario
 
 
-function mostrarAutos(autos){
-
+function limpiarHtml(){
+    
     // leer elemento resultado
     const contenedor = document.querySelector('#resultado');
 
@@ -241,16 +240,32 @@ function mostrarAutos(autos){
 
         contenedor.removeChild(contenedor.firstChild);
     }
+}
+
+function mostrarAutos(autos){
+
+    limpiarHtml();
 
     autos.forEach(auto => {
 
         const autoHtml = document.createElement('p');
         autoHtml.innerHTML = `<p>${auto.marca} - ${auto.modelo} - ${auto.year} - ${auto.puertas} Puertas - Transmisión: ${auto.transmision} - Precio: ${auto.precio} - Color: ${auto.color}</p>`;
-        contenedor.appendChild(autoHtml);
+        document.querySelector('#resultado').appendChild(autoHtml);
     });
 }
 
+function noResultado(){
 
+    limpiarHtml();
+
+    const noResultado = document.createElement('div');
+    noResultado.classList.add('alerta', 'error');
+    noResultado.appendChild(document.createTextNode('no hay resultados'));
+    document.querySelector('#resultado').appendChild(noResultado);
+}
+
+
+/* filtrados */
 function filtrarAuto(){
 
     const resultado = obtenerAutos().filter( filtrarMarca ).filter( filtrarYear ).filter( filtrarMinimo )
@@ -262,10 +277,9 @@ function filtrarAuto(){
     
     }else{
 
-        alert('no hay resultados');
+        noResultado();
     }
 }
-
 
 function filtrarMarca(auto){
 
@@ -343,7 +357,6 @@ function filtrarTransmision(auto){
     }
 }
 
-
 function filtrarColor(auto){
 
     if(datosBusqueda.color){
@@ -357,4 +370,4 @@ function filtrarColor(auto){
     }
 }
 
-
+/* filtrados */
